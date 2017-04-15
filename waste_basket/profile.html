@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <link href='//fonts.googleapis.com/css?family=Asap' rel='stylesheet'>
+    <title>Profile</title>
+
+    <style>
+
+        .navbar-default {
+            background-color: Blue;
+            border-color: #E7E7E7;
+        }
+
+        .navbar-default .navbar-brand {
+            color: white;
+            font-family: 'Bree Serif', sans-serif;
+        }
+
+        h1.centered-header1{
+            text-align: center;
+            color: aliceblue;
+            font-family: 'Sofia';
+            font-size: 80px;
+            text-shadow: 2px 2px 2px #aaa;
+
+        }
+
+        body{
+            width: 100%;
+            background-color: #4e4e4e;
+            font-family: 'Asap';
+            font-size: 25px;
+            color: aliceblue;
+        }
+
+        label{
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        input{
+            margin-bottom: 10px;
+        }
+
+        input:focus::-webkit-input-placeholder {
+            color:transparent;
+        }
+
+        button{
+            margin:30px auto;
+        }
+
+        div.container#profile-container{
+            border:1px solid rgba(12, 12, 12, 0.69);
+            border-radius: 10px;
+            width: 95%;
+            height: 85%;
+            background-color: rgba(240, 248, 255, 0.11);
+
+            position: absolute;
+
+            top:0px;
+            bottom:0px;
+            left:0px;
+            right:0px;
+
+            margin:auto;
+
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+<div class="container" id="main">
+    <div class="container">
+        <div class="navbar-default navbar-fixed-top">
+            <!-- <a href="#" class="navbar-brand pull-left" style="font-size: 50px">Profile</a> -->
+            <ul class="nav navbar-nav navbar-right pull-left">
+                <li><a href="#" style="color: white">Profile</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right pull-right">
+                <li><a href="#"><span class="glyphicon glyphicon-ok" style="color:white" > </span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container" id="profile-container">
+
+        <h1 class="centered-header1">Profile</h1>
+
+        <label for="username">Username</label>
+        <input class="form-control" type="text" id="username" placeholder="Username OR email address" />
+
+        <label for="user-email">Email</label>
+        <input class="form-control" type="email" id="user-email" placeholder="Email"/>
+
+        <label for="user-first-name">First Name</label>
+        <input class="form-control" type="text" id="user-first-name" placeholder="First Name"/>
+
+        <label for="user-last-name">Last name</label>
+        <input class="form-control" type="text" id="user-last-name" placeholder="Last Name"/>
+
+        <button type="button" class="btn btn-block btn-success btn-lg">Websites</button>
+        <button type="button" class="btn btn-block btn-danger btn-lg" style="margin-top:30px">Log Out</button>
+    </div><!-- end of "profile container" -->
+
+    <div class="container">
+        <div class="navbar-default navbar-fixed-bottom">
+            <ul class="nav navbar-nav navbar-right pull-left"></ul>
+            <ul class="nav navbar-nav navbar-right pull-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user" style="color:white"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<nav class="navbar navbar-default navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a ng-click="model.goToHomepage()"
+               class="navbar-brand navbar-top-margin">Speaking Tree</a>
+        </div>
+
+        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                       href="#/">Log Out</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                       href="#/profile/{{model.userId}}">My Profile</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                       ng-click="model.getAllUsers()"
+                       data-toggle="modal"
+                       data-target="#myModal">Search Users</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<!--<div class="container-fluid">
+    <nav id="navbar-properties" class="navbar navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button"
+                    class=" pt-navbar-toggle navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar pt-icon-bar"></span>
+                <span class="icon-bar pt-icon-bar"></span>
+                <span class="icon-bar pt-icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ng-click="model.goToHomepage()">Speaking Tree</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right navbar-font-layout">
+                <li><a class="btn"
+                       ng-click="model.getAllUsers()"
+                       data-toggle="modal"
+                       data-target="#myModal">
+                    Search Users</a></li>
+                <li><a class="btn" href="#/profile/{{model.userId}}">My Profile</a></li>
+                <li><a class="btn" href="#/">Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>-->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header margin-bottom-2em">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-uppercase text-center">All Members</h4>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <input class="form-control text-center"
+                           type="text"
+                           id="myInput2"
+                           ng-keyup="model.filterTableAllUsers()"
+                           placeholder="Search Username here"
+                           title="Type in a name">
+                </div>
+                <table class="table table-hover followerstable"
+                       id="userstable">
+                    <thead>
+                    <tr class="bg-primary">
+                        <th class="text-center">First Name</th>
+                        <th class="text-center">Last Name</th>
+                        <th class="text-center">Username</th>
+                        <th class="text-center">Role</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tr class="text-center" ng-repeat="user in model.allUsers">
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.role}}</td>
+                        <td><a class="btn btn-success">
+                            <i class="fa fa-plus-square fa-lg"></i> Follow</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="page-container-layout">
+    <h1 class="centered-uppercase-text">Followers of {{model.username}}</h1>
+    <div class="container-fluid ">
+        <div class="text-center">
+            <input class="form-control text-center"
+                    type="text"
+               id="myInput"
+               ng-keyup="model.filterTable()"
+               placeholder="Search Username here"
+                   title="Type in a name">
+        </div>
+        <table class="table table-hover followerstable"
+               id="followersTable">
+            <thead>
+            <tr class="bg-primary">
+                <th class="text-center">First Name</th>
+                <th class="text-center">Last Name</th>
+                <th class="text-center">Username</th>
+            </tr>
+            </thead>
+            <tr class="text-center" ng-repeat="follower in model.followersInfo">
+                <td ng-click="model.goToFollowerProfileById(follower._id)">{{follower.firstName}}</td>
+                <td ng-click="model.goToFollowerProfileById(follower._id)">{{follower.lastName}}</td>
+                <td ng-click="model.goToFollowerProfileById(follower._id)">{{follower.username}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

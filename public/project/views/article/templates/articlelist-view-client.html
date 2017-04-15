@@ -1,0 +1,119 @@
+<body>
+<nav class="navbar navbar-default navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a ng-click="model.goToHomepage()"
+               class="navbar-brand navbar-top-margin">Speaking Tree</a>
+        </div>
+
+        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                       href="#/">Log Out</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/profile/{{model.userid}}"
+                       class="navbar-top-padding-0">My Profile</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--<div class="container-fluid">
+    <nav id="navbar-properties" class="navbar navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button"
+                    class=" pt-navbar-toggle navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar pt-icon-bar"></span>
+                <span class="icon-bar pt-icon-bar"></span>
+                <span class="icon-bar pt-icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">Speaking Tree</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right navbar-font-layout">
+                <li><a href="#/profile/{{model.userid}}">My Profile</a></li>
+                <li><a href="#/login">log out</a></li>
+
+            </ul>
+
+        </div>
+    </nav>
+</div>-->
+<div class="container-fluid page-container-layout">
+    <div class="review-list-layout">
+        <div class="container-fluid "
+             ng-repeat="article in model.articlelist"
+             id="review-book-layout">
+            <div ng-init="model.getBookInfoByBookISBN(article.bookisbn)">
+                <div class="col-md-12 col-lg-2 col-xs-12 text-center">
+            <img class="img-thumbnail pull-left book-img-layout"
+                 src="{{model.bookinfo.imgurl}}">
+                </div>
+                <div class="col-md-12 col-lg-5 col-xs-12">
+                    <div>
+                        <table class="table-responsive">
+                        <tr class="padding-top-03em row">
+                            <td class="text-center"><h3>{{model.bookinfo.bookname}}</h3></td>
+                        </tr>
+                        <tr class="row">
+                            <td><h5>Author Name</h5></td>
+                            <td class="pull-left"><h5>{{model.bookinfo.authorname}}</h5></td>
+                        </tr>
+                        <tr class="row">
+                            <td><h5>ISBN</h5></td>
+                            <td><h5>{{model.bookinfo.isbn}}</h5></td>
+                        </tr>
+                        <tr class="row">
+                            <td><h5>Created On</h5></td>
+                            <td><h5>{{article.dateCreated}}</h5></td>
+                        </tr>
+                        </table>
+                    </div>
+            <br/>
+            </div>
+                </div>
+                <div class="col-md-12 col-lg-5 col-xs-12 text-center">
+                    <div class="container-fluid pull-left">
+                        <h3 class="padding-top-03em">Article Title</h3>
+                        <div class="row">
+                            <i class="fa fa-quote-left margin-right-2em" aria-hidden="true"></i>{{article.articletitle}}
+                            <i class="fa fa-quote-right margin-left-2em" aria-hidden="true"></i>
+                        </div>
+                        <br>
+                        <div>
+                        <table class="margin-bottom-2em table-responsive">
+                            <tr class="row margin-bottom-2em">
+                                <td class="pull-left col-md-6 col-xs-6">
+                                    <a class="btn btn-lg btn-warning margin-bottom-2em article-edit-btn"
+                                    href="#/user/{{model.userid}}/article/{{article._id}}/editarticle">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a></td>
+                                <td class="text-center col-md-6 col-xs-6">
+                                    <a class="btn btn-lg btn-danger margin-bottom-2em article-edit-btn"
+                                        ng-click="model.deleteArticle(article._id)">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </a></td>
+                            </tr>
+                        </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

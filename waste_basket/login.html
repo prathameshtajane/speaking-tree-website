@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+
+        h1.centered-header1{
+           text-align: center;
+            color: aliceblue;
+        }
+
+        body{
+            font-family: Sathu,sans-serif;
+            height: 100%;
+            width: 100%;
+        }
+
+        label{
+            font-family: sans-serif;
+            margin-top: 10px;
+            color: aliceblue;
+
+        }
+
+        input:focus::-webkit-input-placeholder {
+            color:transparent;
+        }
+
+        button.btn{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        div.container#login-container{
+            border:1px solid rgba(12, 12, 12, 0.69);
+            border-radius: 10px;
+            width: 90%;
+            height: 350px;
+            background-color: rgba(240, 248, 255, 0.11);
+
+            position: absolute;
+            top:0px;
+            bottom:0px;
+            left:0px;
+            right:0px;
+
+            margin: auto;
+
+        }
+
+
+
+        div.fullscreen-bg{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -100;
+        }
+
+        @media (min-aspect-ratio: 16/9) {
+            .fullscreen-bg__video {
+                height: 100%;
+                top: -100%;
+                width: 100%;
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) {
+            .fullscreen-bg__video {
+                width: 400%;
+                left: -100%;
+            }
+        }
+
+        video {
+            object-fit: fill;
+        }
+
+
+
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+        <div class="fullscreen-bg">
+            <video preload="auto" autoplay loop class="fullscreen-bg__video">
+                <source src="website_video_background_trimmed.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="container" id="login-container">
+
+            <h1 class="centered-header1">Login</h1>
+
+            <label for="username">Username</label>
+            <input class="form-control" type="text" id="username" placeholder="Username" />
+
+            <label for="user-password" >Password</label>
+            <input class="form-control" type="password" id="user-password" placeholder="Password"/>
+
+            <button type="button" class="btn btn-block btn-success">Login</button>
+            <button type="button" class="btn btn-block btn-primary">Register</button>
+
+        </div><!-- end of "login container" -->
+
+
+</body>
+</html>

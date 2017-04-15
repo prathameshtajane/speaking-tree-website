@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+
+    <style>
+
+
+        h1.centered-header1{
+            text-align: center;
+            color: aliceblue;
+            font-family: 'Sofia';
+            font-size: 80px;
+            text-shadow: 2px 2px 2px #aaa;
+
+        }
+
+        body{
+            width: 100%;
+            background-color: #4e4e4e;
+            font-family: 'Asap';
+            font-size: 25px;
+            color: aliceblue;
+        }
+
+        label{
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        input{
+            margin-bottom: 10px;
+        }
+
+        input:focus::-webkit-input-placeholder {
+            color:transparent;
+        }
+
+        button{
+            margin:30px auto;
+        }
+
+        div.container#register-container{
+            border:1px solid rgba(12, 12, 12, 0.69);
+            border-radius: 10px;
+            width: 90%;
+            height: 600px;
+            background-color: rgba(240, 248, 255, 0.11);
+
+            position: absolute;
+            top:0px;
+            bottom:0px;
+            left:0px;
+            right:0px;
+
+            margin:auto;
+            clear: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="register-container">
+
+    <h1 class="centered-header1">Register</h1>
+
+    <label for="username">Username</label>
+    <input class="form-control" type="text" id="username" placeholder="Username OR email address" />
+
+    <label for="user-password" >Password</label>
+    <input class="form-control" type="password" id="user-password" placeholder="Password"/>
+
+    <label for="verify-user-password" >Verify Password</label>
+    <input class="form-control" type="password" id="verify-user-password" placeholder="Verify Password"/>
+
+    <button type="button" class="btn btn-block btn-success btn-lg">Register</button>
+    <button type="button" class="btn btn-block btn-danger btn-lg">Cancel</button>
+</div><!-- end of "register container" -->
+
+</body>
+</html>

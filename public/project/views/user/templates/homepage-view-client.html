@@ -1,0 +1,205 @@
+<nav class="navbar navbar-default navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand navbar-top-margin">Speaking Tree</a>
+        </div>
+
+        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                       ng-if="model.userloginStatus == true"
+                       href="#/register">Log Out</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                        ng-if="model.userloginStatus == true"
+                       href="#/login">Edit Profile</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                        ng-if="model.userloginStatus == false"
+                       href="#/login">Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                        ng-if="model.userloginStatus == false"
+                       href="#/register">Register</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row page-container-layout">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8">
+        <div class="row">
+            <div class="col-xs-11">
+                    <input type="text"
+                               class="form-control text-center"
+                               placeholder="Search book by bookname"
+                               name="srch-term"
+                               id="srch-term"
+                               ng-model="book.bookname">
+            </div>
+            <div class="col-xs-1">
+                <button type="submit"
+                        class="btn btn-default"
+                        ng-click="model.booksearch(book)"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2"></div>
+</div>
+
+<div ng-repeat="bookinfo in model.bookinfolist">
+    <div class="col-lg-4 col-sm-6 col-xs-12 bookshelf-layout">
+        <div class="panel bookinfo-panel">
+            <div class="panel-heading">
+                <h3 class="panel-title centered-text margin-bottom-1em margin-top-1em">
+                    {{bookinfo.volumeInfo.title}}
+                </h3>
+            </div>
+            <img class="margin-bottom-1em center book-img-layout"
+                 src={{bookinfo.volumeInfo.imageLinks.smallThumbnail}}
+                 alt="CSS3">
+            <p class="margin-bottom-1em margin-top-1em centered-text">
+                {{bookinfo.volumeInfo.authors[0]}}
+            </p>
+            <p class="margin-bottom-1em margin-top-1em centered-text">
+                {{bookinfo.volumeInfo.publisher}}
+            </p>
+            <p class="margin-bottom-1em margin-top-1em centered-text">
+                {{bookinfo.volumeInfo.publishedDate}}
+            </p>
+            <a class="btn btn btn-info button-layout"
+               ng-click="model.goToBookInfo(bookinfo.id,bookinfo.volumeInfo.industryIdentifiers[1].identifier)">
+                More Info about {{bookinfo.volumeInfo.title}}</a>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="container-fluid">
+    <nav id="navbar-properties" class="navbar navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button"
+                        class=" pt-navbar-toggle navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar pt-icon-bar"></span>
+                    <span class="icon-bar pt-icon-bar"></span>
+                    <span class="icon-bar pt-icon-bar"></span>
+                </button>
+                <a class="navbar-brand">Speaking Tree</a>
+            </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right navbar-font-layout">
+                <li><a ng-if="model.userloginStatus == true"
+                       href="#/login">Edit Profile</a></li>
+                <li><a ng-if="model.userloginStatus == true"
+                       href="#/register">Log Out</a></li>
+                <li><a ng-if="model.userloginStatus == false"
+                       href="#/login">Login</a></li>
+                <li><a ng-if="model.userloginStatus == false"
+                       href="#/register">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>-->
+
+<!--
+<div class="container-fluid page-container-layout">
+    <div class="container-fluid">
+        <form class="navbar-form" role="search">
+            <div class="input-group add-on">
+                <input type="text" class="form-control text-center"
+                       placeholder="Search book by bookname"
+                       name="srch-term" id="srch-term"
+                       ng-model="book.bookname">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" ng-click="model.booksearch(book)">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div ng-repeat="bookinfo in model.bookinfolist">
+            <div class="col-lg-4 col-sm-6 col-xs-12 bookshelf-layout">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title centered-text margin-bottom-1em margin-top-1em">
+                            {{bookinfo.volumeInfo.title}}
+                        </h3>
+                    </div>&lt;!&ndash; end of div class="panel-heading" &ndash;&gt;
+                    <img class="img-responsive margin-bottom-1em center"
+                         src={{bookinfo.volumeInfo.imageLinks.smallThumbnail}}
+                         alt="CSS3">
+                    <p class="margin-bottom-1em margin-top-1em centered-text">
+                        {{bookinfo.volumeInfo.authors[0]}}
+                    </p>
+                    <p class="margin-bottom-1em margin-top-1em centered-text">
+                        {{bookinfo.volumeInfo.publisher}}
+                    </p>
+                    <p class="margin-bottom-1em margin-top-1em centered-text">
+                        {{bookinfo.volumeInfo.publishedDate}}
+                    </p>
+                    <a class="btn btn btn-info btn-block"
+                       ng-click="model.goToBookInfo(bookinfo.id,bookinfo.volumeInfo.industryIdentifiers[1].identifier)">
+                        More Info about {{bookinfo.volumeInfo.title}}</a>
+                </div>&lt;!&ndash; end of panel &ndash;&gt;
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+
+
+
+
+<!--<div class="container-fluid">
+    &lt;!&ndash;<div ng-repeat="bookinfo in model.bookinfolist">
+        <div class="col-lg-4 col-sm-6 col-xs-12 bookshelf-layout">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title centered-text margin-bottom-1em margin-top-1em">
+                        {{bookinfo.volumeInfo.title}}
+                    </h3>
+                </div>&lt;!&ndash; end of div class="panel-heading" &ndash;&gt;
+                <img class="img-responsive margin-bottom-1em center"
+                     src={{bookinfo.volumeInfo.imageLinks.smallThumbnail}}
+                     alt="CSS3">
+                <p class="margin-bottom-1em margin-top-1em centered-text">
+                    {{bookinfo.volumeInfo.authors[0]}}
+                </p>
+                <p class="margin-bottom-1em margin-top-1em centered-text">
+                    {{bookinfo.volumeInfo.publisher}}
+                </p>
+                <p class="margin-bottom-1em margin-top-1em centered-text">
+                    {{bookinfo.volumeInfo.publishedDate}}
+                </p>
+                <a class="btn btn btn-info btn-block"
+                   ng-click="model.goToBookInfo(bookinfo.id,bookinfo.volumeInfo.industryIdentifiers[1].identifier)">
+                    More Info about {{bookinfo.volumeInfo.title}}</a>
+            </div>&lt;!&ndash; end of panel &ndash;&gt;
+        </div>
+    </div>&ndash;&gt;
+</div>&lt;!&ndash; end of container fluid &ndash;&gt;-->
