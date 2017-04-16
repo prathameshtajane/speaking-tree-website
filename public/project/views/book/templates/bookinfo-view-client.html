@@ -157,7 +157,7 @@
                 ng-click="model.goToWriteNewArticle()">
                 Write an Article about {{model.bookinfo.volumeInfo.title}}</a>
             <h4>Plot of the book</h4>
-            {{model.bookinfo.volumeInfo.description}}
+            <p ng-bind-html="model.bookinfo.volumeInfo.description"></p>
         </div>
             <br/>
             <div class="row bookinfo-bookcontent-inner-row">
