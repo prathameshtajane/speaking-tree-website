@@ -4,7 +4,7 @@
         .module("webdevProject")
         .controller("bookinfoController",bookinfoController);
 
-    function bookinfoController(bookService,userService,articleService,$location,$routeParams) {
+    function bookinfoController(bookService,userService,articleService,$location,$routeParams,$route,$rootScope) {
         var vm = this;
         vm.bookisbn=$routeParams['isbnid'];
         vm.bookvid=$routeParams['vid'];
@@ -19,6 +19,7 @@
         vm.submitReview=submitReview;
         vm.addLikeToArtilce=addLikeToArtilce;
         vm.addDisLikeToArtilce=addDisLikeToArtilce;
+        vm.logout=logout;
 
         function init() {
             console.log("Reached bookinfoController");
@@ -197,6 +198,7 @@
                 .success(function (addBookReviewStatus) {
                 console.log("Book Review addition succesfull");
                 console.log(addBookReviewStatus);
+                $route.reload();
                 init();
                 })
                 .error(function (err) {
@@ -235,6 +237,17 @@
                     console.log("Articles updation failed");
                 })
 
+        }
+
+        function logout() {
+            userService
+                .logout()
+                .success(
+                    function (response) {
+                        $rootScope.currentUser=null;
+                        $location.url('/');
+                    }
+                )
         }
     }
 })();

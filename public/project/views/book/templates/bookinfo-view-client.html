@@ -19,7 +19,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a ng-if="model.userloginStatus == true"
                        class="navbar-top-padding-0"
-                       href="#/">Log Out</a></li>
+                       ng-click="model.logout()"
+                       >Log Out</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -122,7 +123,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <h4 class="margin-right-2em">Cotegory</h4>
+                        <h4 class="margin-right-2em">Category</h4>
                     </td>
                     <td>
                         <h4>{{model.bookinfo.volumeInfo.categories[0]}}</h4>
@@ -152,7 +153,7 @@
         <div class="row bookinfo-bookcontent-inner-row" id="bookinfo-bookcontent-inner-row-id">
             <a class="btn btn-block btn-success "
                id="add-article-button"
-                ng-if="model.userRole == 'author'"
+                ng-if="model.userRole == 'Author'"
                 ng-click="model.goToWriteNewArticle()">
                 Write an Article about {{model.bookinfo.volumeInfo.title}}</a>
             <h4>Plot of the book</h4>
@@ -292,7 +293,7 @@
         </div>
             <div class="bookinfo-bookcontent-inner-row row"
                  id="bookcontent-bookreview"
-                 ng-if="model.userloginStatus == true && (model.userRole == 'reader')">
+                 ng-if="model.userloginStatus == true && (model.userRole == 'Reader')">
                 <div class="row bookinfo-bookreview-inner-row">
                     <h4 class="margin-bottom-1em">Add reviews for this book</h4>
                     <input type="text"

@@ -5,7 +5,8 @@
 
     function profileController($routeParams,$location,userService,articleService,bookService,$anchorScroll,$rootScope){
         var vm=this;
-        vm.userid=$routeParams['uid'];
+        /*vm.userid=$routeParams['uid'];*/
+        vm.userid=$rootScope.currentUser._id;
         vm.followerid=$routeParams['fid'];
 
 
@@ -26,6 +27,8 @@
 
         function init(){
             console.log("profileController loaded");
+            console.log("$rootScope.currentUser");
+            console.log($rootScope.currentUser._id);
             userService
                 .findUserById(vm.userid)
                 .success(function (user) {
@@ -133,7 +136,6 @@
                 if(typeof vm.followerid == 'undefined'){
                     vm.personalProfileFlag=true;
                 }
-
 
 
 

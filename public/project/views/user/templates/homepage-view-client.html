@@ -20,13 +20,13 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="navbar-top-padding-0"
                        ng-if="model.userloginStatus == true"
-                       href="#/register">Log Out</a></li>
+                       ng-click="model.logout()">Log Out</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="navbar-top-padding-0"
                         ng-if="model.userloginStatus == true"
-                       href="#/login">Edit Profile</a></li>
+                       ng-click="model.gotoEditProfile()">Edit Profile</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="navbar-top-padding-0"

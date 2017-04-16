@@ -6,9 +6,16 @@ module.exports=function (app,model) {
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-    app.post("/api/login",passport.authenticate('local'),login);
-    app.post("/api/logout",logout);
 
+    var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+    var googleConfig = {
+        clientID     : '19173067953-ed4ujiop68g3tfh2jihr44utkgctj6hq.apps.googleusercontent.com',
+        clientSecret : 'f2gMNKSrQITQyXfokjmDViKC',
+        callbackURL  : 'http://127.0.0.1:3000/google/auth/callback'
+    };
+
+    app.post("/api/logout",logout);
+    app.post("/api/login",passport.authenticate('local'),login);
     /*app.post("/api/user",createUser);*/
     app.post("/api/project/user",createUser);
     app.get("/api/user",findUser);
@@ -20,10 +27,63 @@ module.exports=function (app,model) {
     app.delete("/api/user/:userId",deleteUser);
     app.get("/api/following/:userName",getReviewsOfFollowingUsers);
     app.get("/api/loggedin",loggedin);
+    /*app.get("/auth/google",googleLogin);*/
+    app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
+    app.get('/google/auth/callback',
+        passport.authenticate('google', {
+            successRedirect: '/#/profile',
+            /*successRedirect: '/profile/'+ done.user._id,*/
+            failureRedirect: '/#/login'
+        }
+        ));
 
     var userModel=model.userModel;
     var bookModel=model.bookModel;
+
+
+    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
+    function googleStrategy(token, refreshToken, profile, done) {
+        console.log("Profile from google");
+        console.log(profile);
+        userModel
+            .findUserByGoogleId(profile.id)
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        var email = profile.emails[0].value;
+                        var emailParts = email.split("@");
+                        var newGoogleUser = {
+                            username:  emailParts[0],
+                            firstName: profile.name.givenName,
+                            lastName:  profile.name.familyName,
+                            email:     email,
+                            google: {
+                                id:    profile.id,
+                                token: token
+                            }
+                        };
+                        return userModel.createUser(newGoogleUser);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            )
+            .then(
+                function(user){
+                    console.log("User created for google");
+                    console.log(user);
+                    return done(null, user);
+                },
+                function(err){
+                    if (err) { return done(err); }
+                }
+            );
+    }
 
     function loggedin(req,res) {
         console.log("Reached loggedin");

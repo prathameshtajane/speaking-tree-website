@@ -20,6 +20,15 @@
                 controllerAs:'model'
             })
 
+            .when("/profile",{
+                templateUrl:'project/views/user/templates/profile-view-client.html',
+                controller:'profileController',
+                controllerAs:'model',
+                resolve:{
+                    loggedin : checkLoggedin
+                }
+            })
+
             .when("/profile/:uid/homepage",{
                 templateUrl:'project/views/user/templates/homepage-view-client.html',
                 controller:'homepageController',
@@ -37,6 +46,7 @@
                 controller:'adminController',
                 controllerAs:'model'
             })
+
 
             .when("/profile/:uid",{
                 templateUrl:'project/views/user/templates/profile-view-client.html',
@@ -116,10 +126,10 @@
             .when("/bookinfo/:isbnid/volumeinfo/:vid",{
                 templateUrl:'project/views/book/templates/bookinfo-view-client.html',
                 controller:'bookinfoController',
-                controllerAs:'model',
-                resolve:{
+                controllerAs:'model'
+                /*resolve:{
                     loggedin : checkLoggedin
-                }
+                }*/
             })
 
             .when("/user/:uid/bookinfo/:isbnid/volumeinfo/:vid/newarticle",{

@@ -6,13 +6,15 @@
         .module("webdevProject")
         .controller('homepageController',homepageController);
 
-    function homepageController(userService,$location,bookService,$routeParams) {
+    function homepageController(userService,$location,bookService,$routeParams,$rootScope) {
         var vm = this;
 
         vm.login = login;
         vm.register = register;
         vm.goToBookInfo = goToBookInfo;
         vm.booksearch=booksearch;
+        vm.gotoEditProfile=gotoEditProfile;
+        vm.logout=logout;
         vm.userId=$routeParams['uid'];
 
 
@@ -44,6 +46,10 @@
             $location.url('/register');
         }
 
+        function gotoEditProfile() {
+            $location.url('/profile/'+vm.userId+'/update');
+        }
+
 
         function booksearch(bookinfo){
             console.log(bookinfo.bookname);
@@ -71,6 +77,17 @@
 
             }
 
+        }
+
+        function logout() {
+            userService
+                .logout()
+                .success(
+                    function (response) {
+                        $rootScope.currentUser=null;
+                        $location.url('/');
+                    }
+                )
         }
 
     }

@@ -18,8 +18,23 @@ module.exports=function(app,mongoose){
         findfollowingListByUserId:findfollowingListByUserId,
         addFollower:addFollower,
         findFollowingOfUserByUsername:findFollowingOfUserByUsername,
+        findUserByGoogleId:findUserByGoogleId
     };
     return api;
+    
+    function findUserByGoogleId(googleId) {
+        var deferred = q.defer();
+        console.log("findFollowersOfUserByUsername from user.model.server");
+        userModel.findOne({"google.id":googleId},function (err,user){
+            if(err){
+                deferred.reject(new Error(err));
+            }
+            else{
+                deferred.resolve(user);
+            }
+        });
+        return deferred.promise;
+    }
 
     function findFollowingOfUserByUsername(username){
         var deferred = q.defer();

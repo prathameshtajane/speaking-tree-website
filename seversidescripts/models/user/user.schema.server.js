@@ -10,7 +10,11 @@ var UserSchema = mongoose.Schema({
     "followers":[],
     "following":[],
     "books":[],
-    "role":{type: String,enum:['Reader','Author','Admin']},
+    "role":{type: String,enum:['Reader','Author','Admin'],default:'Reader'},
+    "google":{
+        id   : String,
+        token: String
+    },
     "dateCreated": Date
 }, {collection: 'user'});
 module.exports = UserSchema;
