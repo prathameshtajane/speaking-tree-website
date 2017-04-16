@@ -44,7 +44,10 @@
             .when("/profile/admin",{
                 templateUrl:'project/views/user/templates/admin-view-client.html',
                 controller:'adminController',
-                controllerAs:'model'
+                controllerAs:'model',
+                resolve:{
+                    loggedin : checkLoggedin
+                }
             })
 
 

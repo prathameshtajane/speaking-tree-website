@@ -15,6 +15,7 @@ var UserSchema = mongoose.Schema({
         id   : String,
         token: String
     },
+    "profileurl":String,
     "dateCreated": Date
 }, {collection: 'user'});
 module.exports = UserSchema;

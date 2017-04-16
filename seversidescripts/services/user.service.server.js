@@ -14,6 +14,10 @@ module.exports=function (app,model) {
         callbackURL  : 'http://127.0.0.1:3000/google/auth/callback'
     };
 
+    var multer = require('multer');
+    var upload = multer({ dest: __dirname+'/../../public/uploads' });
+
+    app.post ("/api/upload", upload.single('myFile'),uploadImage);
     app.post("/api/logout",logout);
     app.post("/api/login",passport.authenticate('local'),login);
     /*app.post("/api/user",createUser);*/
@@ -61,6 +65,7 @@ module.exports=function (app,model) {
                             firstName: profile.name.givenName,
                             lastName:  profile.name.familyName,
                             email:     email,
+                            profileurl:profile.photos[0].value,
                             google: {
                                 id:    profile.id,
                                 token: token
@@ -364,6 +369,24 @@ module.exports=function (app,model) {
                     done(err, null);
                 }
             );
+    }
+    
+    function uploadImage(req,res) {
+        var myFile=req.file;
+        var userid=req.body.userid;
+        var filename= myFile.filename;     // new file name in upload folder
+
+        var imgUrl="../../../../uploads/"+filename;
+        console.log("Reached uploadImage from user.service.server");
+
+        userModel
+            .updateProfilePicByUserId(imgUrl,userid)
+            .then(function (user) {
+                    res.redirect("/#/profile/"+userid);
+                },
+                function (err) {
+                    res.sendStatus(200);
+                });
     }
 
 

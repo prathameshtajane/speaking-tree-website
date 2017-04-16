@@ -48,6 +48,8 @@
 
             }
             else{
+                console.log("Printing image object");
+                console.log(newUserObj);
             userService
                 .updateUser(vm.userid,newUserObj)
                 .success(function (status) {

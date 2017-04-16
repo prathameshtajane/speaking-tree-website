@@ -3,7 +3,7 @@
         .module("webdevProject")
         .controller('adminController',adminController);
     
-    function adminController(userService,bookService,articleService,$location) {
+    function adminController(userService,bookService,articleService,$location,$rootScope) {
         var vm = this;
         vm.getAllUsers=getAllUsers;
         vm.getAllArticles=getAllArticles;
@@ -14,6 +14,7 @@
         vm.deleteUser=deleteUser;
         vm.deleteReview=deleteReview;
         vm.deleteArticle=deleteArticle;
+        vm.logout=logout;
 
         function init() {
 
@@ -156,6 +157,17 @@
                     }
                 }
             }
+        }
+
+        function logout() {
+            userService
+                .logout()
+                .success(
+                    function (response) {
+                        $rootScope.currentUser=null;
+                        $location.url('/');
+                    }
+                )
         }
 
     }

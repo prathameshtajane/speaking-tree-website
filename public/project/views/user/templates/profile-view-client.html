@@ -121,8 +121,24 @@
 <div class="container-fluid page-container-layout">
     <div class="col-lg-3 col-md-3 col-sm-12">
         <div class="profile-image-container">
+            <div class="row">
         <img class="img-responsive img-thumbnail pull-left profile-img-layout"
-             src="../../../misc/images/prathamesh-tajane.jpg">
+             ng-src={{model.profilepic}}>
+                <form class="profile-img-layout padding-top-11em"
+                      action="/api/upload"
+                      method="post"
+                      enctype="multipart/form-data">
+                    <input  name="myFile"
+                            type="file"
+                            class="form-control"
+                            id="upload_file"
+                            ng-model="model.uploadedImgObj"/>
+                    <input  name="userid" value="{{model.userid}}" style="display: none"/>
+                    <button class="form-control btn-block btn-success pull-left"
+                            type="submit">Change profile pic</button>
+                </form>
+            <!--<a class="btn btn-success pull-left profile-img-layout">Change profile pic</a>-->
+            </div>
         </div>
     </div>
         <div class="col-lg-9 col-md-9 col-sm-12">
@@ -261,7 +277,7 @@
 
             <div class="container-fluid " ng-repeat="review in model.reviewlist" id="review-book-layout">
                     <img class="img-responsive img-thumbnail pull-left book-img-layout"
-                         src="{{book.imgurl}}">
+                         ng-src="{{review.imgurl}}">
                     <h3 class="padding-top-03em">{{review.bookname}}</h3>
                     <h4>{{review.reviewsub}}</h4>
                 <i class="fa fa-quote-left" aria-hidden="true"></i>
@@ -283,7 +299,7 @@
                 <h3 class="padding-top-03em">{{article.articletitle}}</h3>
                 <h4>{{article.authorname}}</h4>
                 <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>{{article.articlecontent}}</p>
+                <p ng-bind-html=article.articlecontent></p>
                 <i class="fa fa-quote-right" aria-hidden="true"></i>
                 <br>
                 <label>{{article.dateCreated}}</label>
@@ -293,8 +309,8 @@
             <h4 class="text-center">Followers</h4>
             <div class="container-fluid" ng-repeat="follower in model.followersInfo">
             <div class="container-fluid " id="friendlist-layout">
-                <img class="img-responsive img-thumbnail book-img-layout"
-                     src="../../../misc/images/prathamesh-tajane.jpg">
+                <img class="img-responsive img-thumbnail book-img-layout text-center"
+                     ng-src={{follower.profileurl}}>
                 <br>
                 <label id="friendname">{{follower.username}}</label>
             </div>

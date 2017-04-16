@@ -18,9 +18,28 @@ module.exports=function(app,mongoose){
         findfollowingListByUserId:findfollowingListByUserId,
         addFollower:addFollower,
         findFollowingOfUserByUsername:findFollowingOfUserByUsername,
-        findUserByGoogleId:findUserByGoogleId
+        findUserByGoogleId:findUserByGoogleId,
+        updateProfilePicByUserId:updateProfilePicByUserId
     };
     return api;
+
+    function updateProfilePicByUserId(imageUrl,userId) {
+        var deferred = q.defer();
+        console.log("updateProfilePicByUserId from user.model.server");
+
+        userModel.update({_id:userId},{$set:{"profileurl":imageUrl}},function (err,status){
+            if(err){
+                console.log("Recieved error at model while updateing profileurl");
+                console.log(err);
+                deferred.reject(new Error(err));
+            }else{
+                console.log("User profileurl updation succesfull at model level");
+                console.log(status);
+                deferred.resolve(status);
+            }
+        });
+        return deferred.promise;
+    }
     
     function findUserByGoogleId(googleId) {
         var deferred = q.defer();

@@ -3,6 +3,10 @@
     height: 60px;
 }
 
+.padding-top-11em{
+    padding-top: 12em;
+}
+
 
 /*#navbar-properties{
     background-color: rgba(0,0,0,0);
@@ -382,7 +386,7 @@ table{
 .book-img-layout{
     width: 8em;
     margin-right: 2em;
-    margin-left: 1em;
+    margin-left: 0em;
     margin-top: 2em;
     margin-bottom: 1em;
 }

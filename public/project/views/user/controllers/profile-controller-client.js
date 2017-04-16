@@ -53,6 +53,7 @@
                     vm.username=user.username;
                     vm.firstName=user.firstName;
                     vm.userrole=user.role;
+                    vm.profilepic=user.profileurl;
                     console.log("User received");
                     console.log(user);
 
@@ -95,7 +96,12 @@
                             console.log("findBookReviewsByReviewerId Success in controller");
                             console.log("reviewlist");
                             console.log(reviewlist);
-                            vm.reviewListCount=reviewlist.length;
+                            if(reviewlist.length == "0"){
+                                vm.reviewListCount="0";
+                            }else {
+                                /*vm.reviewListCount="0";*/
+                                vm.reviewListCount = reviewlist.length;
+                            }
                         })
                         .error(function (err) {
                             console.log("findBookReviewsByUserIdList Error in controller");
