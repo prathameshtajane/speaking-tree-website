@@ -413,7 +413,7 @@ table{
 
 .input-group{
     margin-bottom: 1em;
-    width: 50em;
+    /*width: 50em;*/
 }
 
 .input-search-group{
@@ -570,3 +570,17 @@ table{
 .navbar-top-padding-0{
     padding-top: 0px !important;
 }
+
+.ng-empty{
+    background-color: lightgoldenrodyellow !important;
+}
+
+.ng-submitted .ng-empty{
+    background-color: red !important;
+ }
+
+.ng-submitted .ng-invalid{
+    background-color: red !important;
+}
+
+

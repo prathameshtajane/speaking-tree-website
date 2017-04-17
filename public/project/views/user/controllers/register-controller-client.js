@@ -25,7 +25,7 @@
         }
 
         function registerUser(user){
-            console.log(user);
+            console.log("registerUser called");
             if(user != undefined) {
                 if(user.password == user.password1) {
                     userService

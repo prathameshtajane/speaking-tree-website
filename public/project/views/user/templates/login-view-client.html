@@ -37,33 +37,36 @@
             </div>
         </div>
 
-        <div class="row pt_row-sm-offset-3">
+        <div class="row pt_row-sm-offset-3 pt_socialButtons">
             <div class="col-xs-12 col-sm-6">
-                <form class="pt_loginForm" action="" autocomplete="off" method="POST">
+
+                <form class="pt_loginForm " action="" autocomplete="off" method="POST" novalidate>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         <input type="text"
-                               class="form-control"
+                               class="form-control "
                                name="username"
                                placeholder="Username"
-                               ng-model="user.username">
+                               ng-model="user.username"
+                               required>
                     </div>
                     <span class="help-block"></span>
 
-                    <div class="input-group margin-bottom-1em">
+                    <div class="input-group margin-bottom-1em ">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         <input  type="password"
                                 class="form-control"
                                 name="password"
                                 placeholder="Password"
-                                ng-model="user.password">
+                                ng-model="user.password"
+                                required>
                     </div>
 
                     <a class="btn btn-block btn-primary"
                        ng-click="model.login(user)">Login</a>
 
                     <div ng-show="model.error"
-                         class="alert alert-danger">
+                         class="alert alert-danger margin-top-1em text-center">
                         {{model.error}}
                     </div>
                 </form>

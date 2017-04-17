@@ -18,8 +18,7 @@
 
         function login(user){
             console.log("User controller");
-            console.log(user);
-
+            if(typeof user != 'undefined'){
             userService
                 .findUserByCredentails(user.username,user.password)
                 .success(function (user) {
@@ -35,6 +34,10 @@
                 .error(function (err) {
                     vm.error = 'Sorry,This user does not exists';
                 })
+            }
+            else{
+                vm.error = 'Please enter Username and Password';
+            }
 
         }
         

@@ -22,7 +22,12 @@
 
         <div class="row pt_row-sm-offset-3">
             <div class="col-xs-6 col-sm-6 ">
-                <form class="pt_loginForm" action="" autocomplete="off" method="POST">
+                <form class="pt_loginForm"
+                      action=""
+                      autocomplete="off"
+                      method="POST"
+                      novalidate
+                      name="form1">
                     <div ng-show="model.error"
                          class="alert alert-danger alert-box-layout pt_loginForm "
                          role="alert">
@@ -37,7 +42,9 @@
                                class="form-control"
                                name="username"
                                placeholder="Username"
-                               ng-model="userinfo.username">
+                               ng-model="userinfo.username"
+                               required>
+                        <span ng-if="form1.$submitted && form1.username.$error.required">Username is required</span>
                     </div>
 
                     <div class="input-group margin-bottom-1em">
@@ -49,6 +56,7 @@
                                 name="firstname"
                                 placeholder="Firstname"
                                 ng-model="userinfo.firstname">
+                        <span ng-if="form1.$submitted && form1.firstname.$error.required">Firstname is required</span>
                     </div>
 
                     <div class="input-group margin-bottom-1em">
@@ -71,6 +79,7 @@
                                 name="password"
                                 placeholder="Password"
                                 ng-model="userinfo.password">
+                        <span ng-if="form1.$submitted && form1.password.$error.required">Password is required</span>
                     </div>
 
                     <div class="input-group margin-bottom-1em">
@@ -79,9 +88,10 @@
                         </span>
                         <input  type="password"
                                 class="form-control"
-                                name="password"
-                                placeholder=" Verify Password"
+                                name="Confirmpassword"
+                                placeholder=" Please confirm your password here"
                                 ng-model="userinfo.password1">
+                        <span ng-if="form1.$submitted && form1.Confirmpassword.$error.required">Please confirm password</span>
                     </div>
 
                     <div class="input-group margin-bottom-1em">
@@ -91,22 +101,28 @@
                                 name="email"
                                 placeholder=" Email Address"
                                 ng-model="userinfo.email">
+                        <span ng-if="form1.$submitted && form1.email.$error.required">Email is required</span>
                     </div>
 
                     <div class="input-group margin-bottom-1em">
                         <form>
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         <select class="form-control"
+                                name="role"
                                 id="selectrole"
                                 ng-model="userinfo.role">
                             <option>Reader</option>
                             <option>Author</option>
                         </select>
+                            <span ng-if="form1.$submitted && form1.role.$error.required">Please select your choice</span>
                         </form>
                     </div>
 
-                    <a class="btn btn-block btn-lg btn-warning"
-                        ng-click="model.registerUser(userinfo)">Register</a>
+                    <button type="submit"
+                            class="btn btn-block btn-lg btn-warning"
+                            ng-click="model.registerUser(userinfo)">Register</button>
+                    <!--<a class="btn btn-block btn-lg btn-warning"
+                        ng-click="model.registerUser(userinfo)">Register</a>-->
                 </form>
             </div>
         </div>
