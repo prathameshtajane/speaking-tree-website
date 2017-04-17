@@ -46,7 +46,7 @@
                 controller:'adminController',
                 controllerAs:'model',
                 resolve:{
-                    loggedin : checkLoggedin
+                    loggedin : checkAdminLoggedin
                 }
             })
 
@@ -173,8 +173,14 @@
         $http.get('/api/loggedin').success(function(user) {
             $rootScope.errorMessage = null;
             if (user !== '0') {
-                $rootScope.currentUser = user;
-                deferred.resolve();
+                if(user.role == "Admin"){
+                $location.url("/profile/admin");
+                    deferred.resolve();
+                }
+                else{
+                    $rootScope.currentUser = user;
+                    deferred.resolve();
+                }
             } else {
                 deferred.reject();
                 $location.url('/');
@@ -182,4 +188,25 @@
         });
         return deferred.promise;
     }
+
+    var checkAdminLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/api/loggedin').success(function(user) {
+            $rootScope.errorMessage = null;
+            if (user !== '0') {
+                if(user.role == "Admin") {
+                    $rootScope.currentUser = user;
+                    deferred.resolve();
+                }else {
+                    deferred.reject();
+                    $location.url('/profile');
+                }
+            } else {
+                deferred.reject();
+                $location.url('/login');
+            }
+        });
+        return deferred.promise;
+    }
+
 })();
