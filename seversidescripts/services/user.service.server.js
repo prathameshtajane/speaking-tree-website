@@ -13,7 +13,8 @@ module.exports=function (app,model) {
     var googleConfig = {
         clientID     : '19173067953-ed4ujiop68g3tfh2jihr44utkgctj6hq.apps.googleusercontent.com',
         clientSecret : 'f2gMNKSrQITQyXfokjmDViKC',
-        callbackURL  : 'http://127.0.0.1:3000/google/auth/callback'
+        callbackURL  : 'http://speaking-tree-website.herokuapp.com/google/auth/callback'
+        /*callbackURL  : 'http://127.0.0.1:3000/google/auth/callback'*/
     };
 
     var multer = require('multer');
