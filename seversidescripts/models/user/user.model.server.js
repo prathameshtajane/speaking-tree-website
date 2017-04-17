@@ -157,6 +157,8 @@ module.exports=function(app,mongoose){
     function findUserByCredentails(username1,password1){
         var deferred = q.defer();
         console.log("calling findUserByCredentails from user.model.server.js");
+        console.log("username is "+username1);
+        console.log("password is "+password1);
         userModel.findOne({username:username1,password:password1},function (err,user) {
             if(err){
                 deferred.reject(new Error(err));

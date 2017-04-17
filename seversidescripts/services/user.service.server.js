@@ -1,5 +1,7 @@
 module.exports=function (app,model) {
 
+    var bcrypt=require("bcrypt-nodejs");
+
     var passport      = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
     passport.use(new LocalStrategy(localStrategy));
@@ -96,7 +98,7 @@ module.exports=function (app,model) {
     }
 
 
-    function localStrategy(username,password,done) {
+    /*function localStrategy(username,password,done) {
         console.log("Reached localStrategy");
         userModel
             .findUserByCredentails(username,password)
@@ -104,6 +106,27 @@ module.exports=function (app,model) {
                 function(user) {
                     if (!user) { return done(null, false); }
                     return done(null, user);
+                },
+                function(err) {
+                    if (err) { return done(err);   }
+                }
+            );
+    }*/
+
+    function localStrategy(username,password,done) {
+        console.log("Reached localStrategy");
+        userModel
+            .findUserByUsername(username)
+            .then(
+                function(user){
+                    console.log("Reached localStrategy2");
+                    console.log(user);
+                     if(user && bcrypt.compareSync(password,user.password)){
+                        console.log("return done(null,user);");
+                        return done(null,user);}else{
+                        console.log("return done(null,false);");
+                        return done(null,false);
+                    }
                 },
                 function(err) {
                     if (err) { return done(err);   }
@@ -220,18 +243,22 @@ module.exports=function (app,model) {
     }
 
     function createUser(req,res){
-        /*var acceptsJSON = req.accepts('json');*/
         var newUserInfo=req.body;
-        /*console.log(req);*/
+
         console.log("Create user from user.service.server");
         console.log(newUserInfo);
 
-        /*var tempuser={};
+        var tempuser={};
         tempuser.username=newUserInfo.username;
-        tempuser.password=newUserInfo.password1;*/
+        tempuser.firstName=newUserInfo.firstname;
+        tempuser.lastName=newUserInfo.lastname;
+        /*tempuser.password=newUserInfo.password;*/
+        tempuser.password=bcrypt.hashSync(newUserInfo.password);
+        tempuser.email=newUserInfo.email;
+        tempuser.role=newUserInfo.role;
 
         userModel
-            .createUser(newUserInfo)
+            .createUser(tempuser)
             .then(function (user) {
                     /*req.login(user,function (err) {
                         if(err){

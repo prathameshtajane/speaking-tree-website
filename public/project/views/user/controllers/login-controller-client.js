@@ -6,10 +6,15 @@
     function loginController(userService,$location,$rootScope) {
         var vm = this;
         vm.login=login;
+        vm.goToHomepage=goToHomepage;
 
         function init() {
         }
         init();
+
+        function goToHomepage() {
+            $location.url("/");
+        }
 
         function login(user){
             console.log("User controller");
@@ -24,7 +29,7 @@
                         $location.url('/profile/admin');
                     }
                     else{
-                    $location.url('/profile/' + user._id);
+                    $location.url('/profile/');
                     }
                 })
                 .error(function (err) {

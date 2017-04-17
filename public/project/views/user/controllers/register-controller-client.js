@@ -9,11 +9,21 @@
     function registerController(userService,$location) {
         var vm = this;
         vm.registerUser = registerUser;
+        vm.goToHomepage=goToHomepage;
+        vm.goToProfileage=goToProfilepage;
 
         function init() {
         }
-
         init();
+
+        function goToHomepage() {
+            $location.url("/");
+        }
+
+        function goToProfilepage() {
+            $location.url("/profile/");
+        }
+
         function registerUser(user){
             console.log(user);
             if(user != undefined) {
@@ -27,7 +37,7 @@
                             userService
                                 .createUser(user)
                                 .success(function (newUserObj) {
-                                    $location.url('/profile/' + newUserObj._id);})
+                                    $location.url('/login/');})
                         });
                 }
                 else{
