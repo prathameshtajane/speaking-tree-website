@@ -28,6 +28,7 @@
         function init(){
             console.log("profileController loaded");
             console.log("$rootScope.currentUser");
+            vm.reviewListCount=0;
             console.log($rootScope.currentUser._id);
             userService
                 .findUserById(vm.userid)

@@ -374,19 +374,22 @@
                     </div>
 
                 </div>
-                <div class="modal-footer margin-top-modal-footer"
+                <div class="modal-footer margin-top-modal-footer margin-top-footer"
                      ng-if="model.userloginStatus == true">
                     <a class="btn btn-block btn-warning"
                     ng-click="model.followMeClicked(model.reviewerinfo)">
                         FOLLOW ME
                     </a>
+                    <div ng-show="model.fstatus"
+                         class="alert alert-danger margin-top-1em text-center">
+                        {{model.fstatus}}
+                    </div>
                     <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
                 </div>
 
             <div class="modal-footer margin-top-modal-footer"
                  ng-if="model.userloginStatus == false">
             <a class="btn btn-block btn-warning"
-               ng-click="model.followMeClicked(model.reviewerinfo)"
                disabled="">
                 FOLLOW ME
             </a>

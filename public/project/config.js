@@ -32,7 +32,10 @@
             .when("/profile/:uid/homepage",{
                 templateUrl:'project/views/user/templates/homepage-view-client.html',
                 controller:'homepageController',
-                controllerAs:'model'
+                controllerAs:'model',
+                resolve:{
+                    loggedin : checkLoggedin
+                }
             })
 
             .when("/register",{

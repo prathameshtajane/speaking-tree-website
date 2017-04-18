@@ -56,6 +56,10 @@
 </div>-->
 <div class="container-fluid page-container-layout">
     <div class="review-list-layout">
+        <div ng-show="model.status"
+             class="alert alert-danger margin-top-1em text-center">
+            {{model.status}}
+        </div>
         <div class="container-fluid "
              ng-repeat="article in model.articlelist"
              id="review-book-layout">

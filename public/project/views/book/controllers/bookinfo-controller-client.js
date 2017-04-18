@@ -4,7 +4,7 @@
         .module("webdevProject")
         .controller("bookinfoController",bookinfoController);
 
-    function bookinfoController(bookService,userService,articleService,$location,$routeParams,$route,$rootScope) {
+    function bookinfoController(bookService,userService,articleService,$location,$routeParams,$route,$rootScope,$timeout) {
         var vm = this;
         vm.bookisbn=$routeParams['isbnid'];
         vm.bookvid=$routeParams['vid'];
@@ -120,37 +120,13 @@
         }
 
         function followMeClicked(destinationObject){
-
-            var sourceObject={
-                "username" : "prathamesh",
-                "password" : "qwe",
-                "firstName" : "prathamesh",
-                "lastName" : "tajane",
-                "email" : "ptajane@gmail.com",
-                "phone" : "1234",
-                "role" : "reader",
-                "books" : [ ],
-                "following" : [ ],
-                "followers" : [
-                    {
-                        "username" : "prathamesha",
-                        "password" : "qwe",
-                        "firstName" : "prathameshA",
-                        "lastName" : "tajaneA",
-                        "email" : "ptajaneA@gmail.com",
-                        "phone" : "1234A",
-                        "followers" : [ ],
-                        "following" : [ ],
-                        "books" : [ ],
-                        "role" : "author"
-                    }
-                ],
-                "__v" : 0
-            };
+            vm.fstatus="";
+            var sourceObject=vm.userInfo;
             console.log("destinationObject");
             console.log(destinationObject);
             console.log("sourceObject");
             console.log(sourceObject);
+            if(sourceObject.username != destinationObject.username){
             userService
                 .addFollower(sourceObject,destinationObject)
                 .success(function (addFollowerStatus) {
@@ -161,6 +137,10 @@
                     console.log("Add Follower failed");
                     console.log(err);
                 })
+            }else{
+                $timeout(function() { vm.fstatus = null;}, 2000);
+                vm.fstatus="Sorry,You can not be your own follower!"
+            }
         }
 
         function getBasicUserInfo(userid) {

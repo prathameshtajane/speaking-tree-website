@@ -16,8 +16,10 @@
             articleService
                 .findBookArticleListByAuthorId(vm.userid)
                 .success(function (articlelist){
-                    console.log(articlelist);
                     vm.articlelist=articlelist;
+                    if(articlelist.length == '0'){
+                        vm.status="No articles added yet !"
+                    }
                 })
                 .error(function (err) {
                     console.log("Failed to retreive article list of author with author id as"+vm.userid);
