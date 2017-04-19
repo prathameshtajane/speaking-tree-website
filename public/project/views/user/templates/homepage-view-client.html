@@ -28,6 +28,13 @@
                         ng-if="model.userloginStatus == true"
                        ng-click="model.gotoEditProfile()">Edit Profile</a></li>
             </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-top-padding-0"
+                       ng-if="model.userloginStatus == true"
+                       ng-click="model.goToMyProfile()">My Profile</a></li>
+            </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a class="navbar-top-padding-0"
                         ng-if="model.userloginStatus == false"

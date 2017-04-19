@@ -3,9 +3,11 @@
         .module("webdevProject")
         .controller('followinglistController',followinglistController);
 
-    function followinglistController($routeParams,$location,userService) {
+    function followinglistController($routeParams,$location,userService,$rootScope) {
         var vm=this;
         vm.findfollowingOfUser=findfollowingOfUser;
+        vm.goToHomepage=goToHomepage;
+        vm.logout=logout;
         /*vm.goToUserProfileById=goToFollowerProfileById;*/
 
         var userId=$routeParams['uid'];
@@ -16,6 +18,10 @@
             console.log(userId);
         }
         init();
+
+        function goToHomepage() {
+            $location.url("/profile/"+userId+"/homepage");
+        }
 
         function findfollowingOfUser(userid){
             userService
@@ -28,8 +34,15 @@
             })
         }
 
-        /*function goToUserProfileById(userid){
-            $location.url('/profile/'+userid);
-        }*/
+        function logout() {
+            userService
+                .logout()
+                .success(
+                    function (response) {
+                        $rootScope.currentUser=null;
+                        $location.url('/');
+                    }
+                )
+        }
     }
 })();

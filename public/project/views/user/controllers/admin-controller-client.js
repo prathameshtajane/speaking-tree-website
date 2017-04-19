@@ -3,7 +3,7 @@
         .module("webdevProject")
         .controller('adminController',adminController);
     
-    function adminController(userService,bookService,articleService,$location,$rootScope) {
+    function adminController(userService,bookService,articleService,$location,$rootScope,$route) {
         var vm = this;
         vm.getAllUsers=getAllUsers;
         vm.getAllArticles=getAllArticles;
@@ -60,10 +60,6 @@
                     console.log("article deletion failed");
                 })
         }
-
-
-
-
 
         function getAllUsers() {
             userService

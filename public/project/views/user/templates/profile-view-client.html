@@ -83,6 +83,10 @@
             </div>
             <div class="modal-body">
                 <div class="text-center">
+                    <div ng-show="model.fstatus"
+                         class="alert alert-danger margin-top-1em text-center">
+                        {{model.fstatus}}
+                    </div>
                     <input class="form-control text-center"
                            type="text"
                            id="myInput"
@@ -307,7 +311,7 @@
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 review-list-layout">
             <h4 class="text-center">Followers</h4>
-            <div class="container-fluid" ng-repeat="follower in model.followersInfo">
+            <div class="container-fluid" ng-repeat="follower in model.followerInfo">
             <div class="container-fluid " id="friendlist-layout">
                 <img class="img-responsive img-thumbnail book-img-layout text-center"
                      ng-src={{follower.profileurl}}>

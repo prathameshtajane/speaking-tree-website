@@ -29,6 +29,7 @@
                     console.log("bookInformation");
                     console.log(bookInformation);
                     vm.bookinfo=bookInformation;
+                    vm.bookrating=bookInformation.volumeInfo.averageRating;
                     bookService
                         .findBooksByAuthorName(bookInformation.volumeInfo.authors[0])
                         .success(function (booksbyauthor) {
@@ -121,25 +122,42 @@
 
         function followMeClicked(destinationObject){
             vm.fstatus="";
+            vm.duplicatef = '0';
             var sourceObject=vm.userInfo;
             console.log("destinationObject");
             console.log(destinationObject);
             console.log("sourceObject");
             console.log(sourceObject);
-            if(sourceObject.username != destinationObject.username){
-            userService
-                .addFollower(sourceObject,destinationObject)
-                .success(function (addFollowerStatus) {
-                    console.log("Add Follower succesfull");
-                    console.log(addFollowerStatus);
-                })
-                .error(function (err) {
-                    console.log("Add Follower failed");
-                    console.log(err);
-                })
-            }else{
-                $timeout(function() { vm.fstatus = null;}, 2000);
-                vm.fstatus="Sorry,You can not be your own follower!"
+
+            for (var i = 0; i < sourceObject.following.length; i++) {
+                if (sourceObject.following[i].username == destinationObject.username) {
+                    vm.duplicatef = '1';
+                    console.log("setting vm.duplicatef=1");
+                }
+            }
+            if (vm.duplicatef == '1') {
+                $timeout(function () {
+                    vm.fstatus = null;
+                }, 1000);
+                vm.fstatus = "Sorry,You are already following " + destinationObject.username;
+            } else {
+                if (sourceObject.username != destinationObject.username) {
+                    userService
+                        .addFollower(sourceObject, destinationObject)
+                        .success(function (addFollowerStatus) {
+                            console.log("Add Follower succesfull");
+                            console.log(addFollowerStatus);
+                        })
+                        .error(function (err) {
+                            console.log("Add Follower failed");
+                            console.log(err);
+                        })
+                } else {
+                    $timeout(function () {
+                        vm.fstatus = null;
+                    }, 2000);
+                    vm.fstatus = "Sorry,You can not be your own follower!"
+                }
             }
         }
 

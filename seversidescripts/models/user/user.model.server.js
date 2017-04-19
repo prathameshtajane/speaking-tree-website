@@ -240,7 +240,7 @@ module.exports=function(app,mongoose){
         return deferred.promise;
     }
 
-    function addFollower(sourceObject,destinationObject) {
+    /*function addFollower(sourceObject,destinationObject) {
         var deferred = q.defer();
         console.log("calling addFollower from user.model.server.js");
         console.log("sourceObject");
@@ -271,11 +271,63 @@ module.exports=function(app,mongoose){
         });
         return deferred.promise;
 
+    }*/
+
+    function addFollower(sourceObject,destinationObject) {
+        var deferred = q.defer();
+
+        console.log("calling addFollower from user.model.server.js");
+        console.log("sourceObject");
+        console.log(sourceObject);
+        console.log("destinationObject");
+        console.log(destinationObject);
+
+        sourceObjectUpdated={};
+        sourceObjectUpdated.username=sourceObject.username;
+        sourceObjectUpdated.firstName=sourceObject.firstName;
+        sourceObjectUpdated.lastName=sourceObject.lastName;
+        sourceObjectUpdated.role=sourceObject.role;
+        sourceObjectUpdated.profileurl=sourceObject.profileurl;
+
+        sourceObjectUpdatedArray=[sourceObjectUpdated];
+
+        destinationObjectUpdated={};
+        destinationObjectUpdated.username=destinationObject.username;
+        destinationObjectUpdated.firstName=destinationObject.firstName;
+        destinationObjectUpdated.lastName=destinationObject.lastName;
+        destinationObjectUpdated.role=destinationObject.role;
+        destinationObjectUpdated.profileurl=destinationObject.profileurl;
+        destinationObjectUpdatedArray=[destinationObjectUpdated];
+
+        userModel.update({"username":sourceObject.username},{$addToSet:{"following":{$each:destinationObjectUpdatedArray}}},function (err,followinglist){
+            if(err){
+                console.log("Failure1");
+                console.log(err);
+                deferred.reject(new Error(err));
+            }
+            else{
+                userModel.update({"username":destinationObject.username},{$addToSet:{"followers":{$each:sourceObjectUpdatedArray}}},function (err,updateStatus) {
+                    if (err) {
+                        console.log("Failure2");
+                        console.log(err);
+                        deferred.reject(new Error(err));
+                    }
+                    else {
+                        console.log("Sucess");
+                        console.log(updateStatus);
+                        deferred.resolve(updateStatus);
+                    }
+                });
+            }
+        });
+        return deferred.promise;
+
     }
+
 
     function findAllUsers() {
         var deferred = q.defer();
-        userModel.find({},{"password":0,"email":0,"phone":0,"following":0,"followers":0,"books":0},function (err,allUserList){
+        userModel.find({"username":{$ne:"admin"}},{"password":0,"email":0,"phone":0,"following":0,"followers":0,"books":0},function (err,allUserList){
             if(err){
                 deferred.reject(new Error(err));
             }

@@ -16,7 +16,7 @@
         vm.gotoEditProfile=gotoEditProfile;
         vm.logout=logout;
         vm.userId=$routeParams['uid'];
-
+        vm.goToMyProfile=goToMyProfile;
 
         function init() {
 
@@ -48,6 +48,10 @@
 
         function gotoEditProfile() {
             $location.url('/profile/'+vm.userId+'/update');
+        }
+
+        function goToMyProfile() {
+            $location.url("/profile/");
         }
 
 

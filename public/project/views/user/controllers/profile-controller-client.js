@@ -3,7 +3,7 @@
         .module("webdevProject")
         .controller('profileController',profileController);
 
-    function profileController($routeParams,$location,userService,articleService,bookService,$anchorScroll,$rootScope){
+    function profileController($routeParams,$route,$window,$location,userService,$timeout,articleService,bookService,$anchorScroll,$rootScope){
         var vm=this;
         /*vm.userid=$routeParams['uid'];*/
         vm.userid=$rootScope.currentUser._id;
@@ -24,8 +24,12 @@
         vm.goToArticlesSection=goToArticlesSection;
         vm.addFollower=addFollower;
         vm.logout=logout;
+        vm.findUser=findUser;
+
 
         function init(){
+            vm.noReviews="";
+            vm.noArticles="";
             console.log("profileController loaded");
             console.log("$rootScope.currentUser");
             vm.reviewListCount=0;
@@ -35,6 +39,23 @@
                 .success(function (user) {
                     vm.followersInfo=user.followers;
                     vm.currentUser=user;
+
+                    vm.followerInfo=[];
+                    for(var i=0;i < (user.followers.length);i++){
+                        userService
+                            .findUserByUserName(user.followers[i].username)
+                            .success(function (userInfo) {
+                                vm.followerInfo.push({"username":userInfo.username,
+                                 "profileurl":userInfo.profileurl});
+                            })
+                            .error(function () {
+                                console.log("Error occurred while fetching userOnf from follower list");
+                            })
+
+                    }
+                    console.log("vm.followerInfo");
+                    console.log(vm.followerInfo);
+
                     console.log(user.following.length);
                     if(user.followers.length == 0){
                         vm.followerCount='0';
@@ -55,6 +76,7 @@
                     vm.firstName=user.firstName;
                     vm.userrole=user.role;
                     vm.profilepic=user.profileurl;
+                    followerArray=user.followers;
                     console.log("User received");
                     console.log(user);
 
@@ -145,8 +167,6 @@
                 }
 
 
-
-
         }
         init();
 
@@ -235,17 +255,40 @@
         }
         
         function addFollower(destinationUser) {
-            userService
-                .addFollower(vm.currentUser,destinationUser)
-                .success(function (status) {
-                    console.log("Add follower succesfull");
-                    console.log(status);
-                    init();
-                })
-                .error(function (err) {
-                    console.log("Add follower Failed");
-                    console.log(err);
-                })
+            vm.fstatus="";
+            vm.duplicatef='0';
+            allUsers=vm.allUsers;
+            sourceObject=vm.currentUser;
+
+            for(var i=0;i<sourceObject.following.length;i++){
+                if(sourceObject.following[i].username == destinationUser.username){
+                    vm.duplicatef='1';
+                    console.log("setting vm.duplicatef=1");
+                }
+            }
+            if(vm.duplicatef == '1'){
+                vm.fstatus = "Sorry,You are already following "+destinationUser.username;
+            }else {
+                if (sourceObject.username != destinationUser.username) {
+                    userService
+                        .addFollower(sourceObject, destinationUser)
+                        .success(function (status) {
+                            console.log("Add follower succesfull");
+                            console.log(status);
+                            /*$location.url('/profile/');*/
+                            init();
+                        })
+                        .error(function (err) {
+                            console.log("Add follower Failed");
+                            console.log(err);
+                        })
+                } else {
+                    $timeout(function () {
+                        vm.fstatus = null;
+                    }, 2000);
+                    vm.fstatus = "Sorry,You can not be your own follower!"
+                }
+            }
         }
 
         function logout() {
@@ -257,6 +300,19 @@
                         $location.url('/');
                     }
                 )
+        }
+
+        function findUser(follower) {
+            userService
+                .findUserByUserName(follower.username)
+                .success(function (user) {
+                    vm.displaypicurl=user.profileurl;
+                    console.log("vm.displaypicurl");
+                    console.log(vm.displaypicurl);
+                })
+                .error(function (err) {
+                    console.log("Error occrued while fetching display url");
+                })
         }
 
 

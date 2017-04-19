@@ -3,7 +3,7 @@
         .module("webdevProject")
         .controller('followerslistController',followerslistController);
 
-    function followerslistController($routeParams,$location,userService) {
+    function followerslistController($routeParams,$location,userService,$rootScope,$timeout) {
         var vm=this;
         vm.findfollowersOfUser=findfollowersOfUser;
         vm.goToFollowerProfileById=goToFollowerProfileById;
@@ -11,9 +11,10 @@
         vm.filterTableAllUsers=filterTableAllUsers;
         vm.getAllUsers=getAllUsers;
         vm.goToHomepage=goToHomepage;
+        vm.logout=logout;
+        vm.addFollower=addFollower;
 
         userId=$routeParams['uid'];
-
 
 
         function init() {
@@ -28,6 +29,7 @@
                 .findUserById(userid)
                 .success(function (user) {
                     console.log(user);
+                    vm.currentUser=user;
                     vm.followersInfo=user.followers;
                     vm.username=user.firstName;
                     vm.userId=user._id;})
@@ -86,6 +88,8 @@
                 .findAllUsers()
                 .success(function (userlist) {
                     vm.allUsers=userlist;
+                    console.log("vm.allUsers");
+                    console.log(vm.allUsers);
                 })
                 .error(function (err) {
                     console.log("Unable to fetch userlist");
@@ -93,8 +97,56 @@
                 })
         }
 
+
+        function addFollower(destinationUser) {
+            vm.fstatus = "";
+            vm.duplicatef = '0';
+            sourceObject = vm.currentUser;
+
+            for (var i = 0; i < sourceObject.following.length; i++) {
+                if (sourceObject.following[i].username == destinationUser.username) {
+                    vm.duplicatef = '1';
+                    console.log("setting vm.duplicatef=1");
+                }
+            }
+
+            if (vm.duplicatef == '1') {
+                vm.fstatus = "Sorry,You are already following " + destinationUser.username;
+            } else {
+                if (sourceObject.username != destinationUser.username) {
+                    userService
+                        .addFollower(sourceObject, destinationUser)
+                        .success(function (status) {
+                            console.log("Add follower succesfull");
+                            console.log(status);
+                            init();
+                        })
+                        .error(function (err) {
+                            console.log("Add follower Failed");
+                            console.log(err);
+                        })
+                } else {
+                    $timeout(function () {
+                        vm.fstatus = null;
+                    }, 2000);
+                    vm.fstatus = "Sorry,You can not be your own follower!"
+                }
+            }
+        }
+
         function goToHomepage() {
             $location.url("/profile/"+userId+"/homepage");
+        }
+
+        function logout() {
+            userService
+                .logout()
+                .success(
+                    function (response) {
+                        $rootScope.currentUser=null;
+                        $location.url('/');
+                    }
+                )
         }
     }
 
