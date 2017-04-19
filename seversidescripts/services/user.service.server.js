@@ -12,14 +12,14 @@ module.exports=function (app,model) {
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
     var googleConfig = {
 
-        clientID     : GOOGLE_CLIENT_ID,
-        clientSecret : GOOGLE_CLIENT_SECRET,
-        callbackURL  : GOOGLE_CALLBACK_URL
+        clientID     : process.env.GOOGLE_CLIENT_ID,
+        clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL  : process.env.GOOGLE_CALLBACK_URL
 
         /*clientID     : '19173067953-ed4ujiop68g3tfh2jihr44utkgctj6hq.apps.googleusercontent.com',
         clientSecret : 'f2gMNKSrQITQyXfokjmDViKC',
-        callbackURL  : 'http://speaking-tree-website.herokuapp.com/google/auth/callback'
-        /!*callbackURL  : 'http://127.0.0.1:3000/google/auth/callback'*!/*/
+        callbackURL  : 'http://speaking-tree-website.herokuapp.com/google/auth/callback'*/
+        /*callbackURL  : 'http://127.0.0.1:3000/google/auth/callback'*/
     };
 
     var multer = require('multer');
@@ -262,7 +262,6 @@ module.exports=function (app,model) {
         tempuser.password=bcrypt.hashSync(newUserInfo.password);
         tempuser.email=newUserInfo.email;
         tempuser.role=newUserInfo.role;
-        tempuser.profileurl="http://www.vivahsohala.com/nophoto.jpg";
 
         userModel
             .createUser(tempuser)
